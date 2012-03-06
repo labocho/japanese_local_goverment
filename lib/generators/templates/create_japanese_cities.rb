@@ -5,7 +5,7 @@ class CreateJapaneseCities < ActiveRecord::Migration
         code char(6) primary key,
         prefecture_code char(6) not null,
         name char(21),
-        foreign key (prefecture_code) references japanese_prefecture (code),
+        foreign key (prefecture_code) references japanese_prefectures (code),
         unique (prefecture_code, name)
       );
     SQL
