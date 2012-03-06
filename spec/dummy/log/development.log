@@ -1,0 +1,123 @@
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (62.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (3.0ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateJapanesePrefectures (20120306075917)
+  [1m[35m (0.2ms)[0m   create table japanese_prefectures(
+ code char(6) primary key,
+ name char(12),
+ unique index index_japanese_prefectures_on_name
+ );
+SQLite3::SQLException: near "index": syntax error:       create table japanese_prefectures(
+        code char(6) primary key,
+        name char(12),
+        unique index index_japanese_prefectures_on_name
+      );
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateJapanesePrefectures (20120306080046)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1m create table japanese_prefectures(
+ code char(6) primary key,
+ name char(12),
+ unique index index_japanese_prefectures_on_name (name)
+ );
+[0m
+SQLite3::SQLException: near "index": syntax error:       create table japanese_prefectures(
+        code char(6) primary key,
+        name char(12),
+        unique index index_japanese_prefectures_on_name (name)
+      );
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateJapanesePrefectures (20120306080046)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1m create table japanese_prefectures(
+ code char(6) primary key,
+ name char(12),
+ unique index_japanese_prefectures_on_name (name)
+ );
+[0m
+SQLite3::SQLException: near "index_japanese_prefectures_on_name": syntax error:       create table japanese_prefectures(
+        code char(6) primary key,
+        name char(12),
+        unique index_japanese_prefectures_on_name (name)
+      );
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateJapanesePrefectures (20120306080046)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.4ms)[0m  [1m create table japanese_prefectures(
+ code char(6) primary key,
+ name char(12),
+ unique (name)
+ );
+[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120306080046')
+Migrating to CreateJapaneseCities (20120306080047)
+  [1m[36m (0.3ms)[0m  [1m create table japanese_cities(
+ code char(6) primary key,
+ prefecture_code char(6) not null,
+ name char(12),
+ foreign key (prefecture_code) references japanese_prefecture (code),
+ unique index index_japanese_cities_on_prefecture_code_and_name(prefecture_code, name)
+ );
+[0m
+SQLite3::SQLException: near "index": syntax error:       create table japanese_cities(
+        code char(6) primary key,
+        prefecture_code char(6) not null,
+        name char(12),
+        foreign key (prefecture_code) references japanese_prefecture (code),
+        unique index index_japanese_cities_on_prefecture_code_and_name(prefecture_code, name)
+      );
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateJapanesePrefectures (20120306080046)
+Migrating to CreateJapaneseCities (20120306080047)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.4ms)[0m  [1m create table japanese_cities(
+ code char(6) primary key,
+ prefecture_code char(6) not null,
+ name char(12),
+ foreign key (prefecture_code) references japanese_prefecture (code),
+ unique (prefecture_code, name)
+ );
+[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120306080047')
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("japanese_cities")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('sqlite_autoindex_japanese_cities_2')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('sqlite_autoindex_japanese_cities_1')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("japanese_prefectures")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('sqlite_autoindex_japanese_prefectures_2')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('sqlite_autoindex_japanese_prefectures_1')
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateJapaneseCities (20120306080047)
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.4ms)[0m   drop table japanese_cities;
+  [1m[36m (0.1ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20120306080047'[0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("japanese_prefectures")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('sqlite_autoindex_japanese_prefectures_2')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('sqlite_autoindex_japanese_prefectures_1')
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to CreateJapanesePrefectures (20120306080046)
+Migrating to CreateJapaneseCities (20120306080047)
+  [1m[35m (0.0ms)[0m  select sqlite_version(*)
+  [1m[36m (0.4ms)[0m  [1m create table japanese_cities(
+ code char(6) primary key,
+ prefecture_code char(6) not null,
+ name char(21),
+ foreign key (prefecture_code) references japanese_prefecture (code),
+ unique (prefecture_code, name)
+ );
+[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20120306080047')
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_list("japanese_cities")[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('sqlite_autoindex_japanese_cities_2')
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('sqlite_autoindex_japanese_cities_1')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("japanese_prefectures")
+  [1m[36m (0.0ms)[0m  [1mPRAGMA index_info('sqlite_autoindex_japanese_prefectures_2')[0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_info('sqlite_autoindex_japanese_prefectures_1')
