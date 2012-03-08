@@ -1,25 +1,29 @@
+# encoding: UTF-8
 require "csv"
+require "ruby-debug"
 module JapaneseLocalGoverment
   module Updater
-    PREFECTURES = "#{File.dirname(__FILE__)}/../../data/japanese_local_goverment/japanese_prefectures.csv"
-    CITIES = "#{File.dirname(__FILE__)}/../../data/japanese_local_goverment/japanese_cities.csv"
+    PREFECTURES_AND_CITIES = "#{File.dirname(__FILE__)}/../../data/japanese_local_goverment/prefectures_and_cities.csv"
+    WARDS = "#{File.dirname(__FILE__)}/../../data/japanese_local_goverment/wards.csv"
     module_function
     def update
-      update_prefectures
-      update_cities
+      update_prefectures_and_cities
+      update_wards
     end
 
-    def update_prefectures
-      CSV.foreach(PREFECTURES, encoding: "UTF-8") do |(code, name)|
-        Prefecture.create_or_update!(code: code, name: name)
+    def update_prefectures_and_cities
+      CSV.foreach(PREFECTURES_AND_CITIES, encoding: "UTF-8") do |(code, pref, city)|
+        Base.create_or_update!(code: code, prefecture: pref, city: city)
       end
     end
 
-    def update_cities
-      pref = Prefecture.first
-      CSV.foreach(CITIES, encoding: "UTF-8") do |(code, pref_name, name)|
-        pref = Prefecture.find_by_name(pref_name) unless pref.name == pref_name
-        City.create_or_update!(code: code, prefecture_code: pref.code, name: name)
+    def update_wards
+      CSV.foreach(WARDS, encoding: "UTF-8") do |(code, city_and_ward)|
+        next if City.exists?(city: city_and_ward) # 市の行は無視
+        city_and_ward =~ /\A(.+市)(.+)\z/ # すべて **市** 形式であることを前提にしている
+        city, ward = $~.captures
+        pref = City.where(city: city).first.prefecture # 区を持つ市の名称は重複がないことを前提にしている
+        Base.create_or_update!(code: code, prefecture: pref, city: city, ward: ward)
       end
     end
   end

@@ -6,8 +6,7 @@ module JapaneseLocalGoverment
     source_root File.expand_path "#{File.dirname(__FILE__)}/../templates"
 
     def create_migration_file
-      migration_template "create_japanese_prefectures.rb", "db/migrate/create_japanese_prefectures"
-      migration_template "create_japanese_cities.rb", "db/migrate/create_japanese_cities"
+      migration_template "create_japanese_local_goverments.rb", "db/migrate/create_japanese_local_goverments"
     end
 
     def self.next_migration_number(dirname)

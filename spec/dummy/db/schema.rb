@@ -11,21 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306080047) do
+ActiveRecord::Schema.define(:version => 20120308032336) do
 
-  create_table "japanese_cities", :primary_key => "code", :force => true do |t|
-    t.string "prefecture_code", :limit => 6,  :null => false
-    t.string "name",            :limit => 21
+  create_table "japanese_local_goverments", :primary_key => "code", :force => true do |t|
+    t.string "type",       :limit => 40, :null => false
+    t.string "prefecture", :limit => 12, :null => false
+    t.string "city",       :limit => 21
+    t.string "ward",       :limit => 21
   end
 
-  add_index "japanese_cities", ["code"], :name => "sqlite_autoindex_japanese_cities_1", :unique => true
-  add_index "japanese_cities", ["prefecture_code", "name"], :name => "sqlite_autoindex_japanese_cities_2", :unique => true
-
-  create_table "japanese_prefectures", :primary_key => "code", :force => true do |t|
-    t.string "name", :limit => 12
-  end
-
-  add_index "japanese_prefectures", ["code"], :name => "sqlite_autoindex_japanese_prefectures_1", :unique => true
-  add_index "japanese_prefectures", ["name"], :name => "sqlite_autoindex_japanese_prefectures_2", :unique => true
+  add_index "japanese_local_goverments", ["code"], :name => "sqlite_autoindex_japanese_local_goverments_1", :unique => true
+  add_index "japanese_local_goverments", ["prefecture", "city", "ward"], :name => "sqlite_autoindex_japanese_local_goverments_2", :unique => true
 
 end
