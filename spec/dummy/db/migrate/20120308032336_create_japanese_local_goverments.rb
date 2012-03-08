@@ -2,7 +2,7 @@ class CreateJapaneseLocalGoverments < ActiveRecord::Migration
   def self.up
     execute <<-SQL
       create table japanese_local_goverments(
-        code char(6) primary key,
+        code char(5) primary key,
         type char(40) not null,
         prefecture char(12) not null,
         city char(21),

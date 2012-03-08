@@ -3,7 +3,7 @@ module JapaneseLocalGoverment
     set_table_name :japanese_local_goverments
     set_primary_key :code
     attr_protected :code, :type, :created_at, :updated_at
-    
+
     def self.create_or_update!(attrs)
       code = attrs.delete :code
       lg = find_by_code(code) || new_with_guess_type(attrs)
@@ -12,7 +12,7 @@ module JapaneseLocalGoverment
       lg.save!
       lg
     end
-        
+
     def self.new_with_guess_type(attrs)
       case
       when attrs[:city].blank?
@@ -23,15 +23,19 @@ module JapaneseLocalGoverment
         Ward.new
       end
     end
-    
+
+    def code=(value)
+      self[:code] = value ? value[0..4] : value
+    end
+
     def prefecture?
       is_a? Prefecture
     end
-    
+
     def city?
       is_a? City
     end
-    
+
     def ward?
       is_a? Ward
     end
