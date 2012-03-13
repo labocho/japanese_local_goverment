@@ -28,6 +28,14 @@ module JapaneseLocalGoverment
       self[:code] = value ? value[0..4] : value
     end
 
+    def name
+      ward || city || pref
+    end
+
+    def full_name
+      "#{pref}#{city}#{ward}"
+    end
+
     def prefecture?
       is_a? Prefecture
     end
