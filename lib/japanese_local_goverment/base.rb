@@ -1,7 +1,7 @@
 module JapaneseLocalGoverment
   class Base < ActiveRecord::Base
-    set_table_name :japanese_local_goverments
-    set_primary_key :code
+    self.table_name = :japanese_local_goverments
+    self.primary_key = :code
     attr_protected :code, :type, :created_at, :updated_at
 
     def self.create_or_update!(attrs)
@@ -34,6 +34,14 @@ module JapaneseLocalGoverment
 
     def full_name
       "#{pref}#{city}#{ward}"
+    end
+
+    def to_s
+      name
+    end
+
+    def to_param
+      name
     end
 
     def prefecture?
