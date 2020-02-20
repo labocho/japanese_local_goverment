@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require "csv"
-require "ruby-debug"
+
 module JapaneseLocalGoverment
   module Updater
     PREFECTURES_AND_CITIES = "#{File.dirname(__FILE__)}/../../data/japanese_local_goverment/prefectures_and_cities.csv"
