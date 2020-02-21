@@ -5,7 +5,7 @@ japanese\_local\_goverment is Ruby on Rails plugin to store following informatio
   * Prefecture / City name
   * Local goverment code (全国地方公共団体コード)
   * Prefecture local goverment code (city only)
-  
+
 Source: http://www.soumu.go.jp/main_content/000103403.xls (2011-04-01)
 
 # Instllation
@@ -20,6 +20,10 @@ and enter command below.
     bundle install
     rails generate japanese_local_goverment
     rake db:migrate
+
+Add line below to Rakefile or lib/tasks/japanese_local_goverment.rake
+
+    require "japanese_local_goverment/rake"
 
 # Initialize / Updating
 
