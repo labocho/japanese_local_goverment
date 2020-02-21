@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    japanese_local_goverment (0.0.3)
+    japanese_local_goverment (0.0.4)
       composite_primary_keys
       rails (>= 3.1)
 

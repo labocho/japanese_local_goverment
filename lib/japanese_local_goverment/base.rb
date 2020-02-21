@@ -2,7 +2,6 @@ module JapaneseLocalGoverment
   class Base < ActiveRecord::Base
     self.table_name = :japanese_local_goverments
     self.primary_key = :code
-    attr_protected :code, :type, :created_at, :updated_at
 
     def self.create_or_update!(attrs)
       code = attrs.delete :code
