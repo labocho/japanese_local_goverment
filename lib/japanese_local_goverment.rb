@@ -8,5 +8,3 @@ module JapaneseLocalGoverment
   autoload :Version, "japanese_local_goverment/version"
   autoload :Ward, "japanese_local_goverment/ward"
 end
-
-load "tasks/japanese_local_goverment_tasks.rake" if defined? Rake
