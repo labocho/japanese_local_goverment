@@ -1,5 +1,4 @@
 require "active_record"
-require "composite_primary_keys"
 module JapaneseLocalGoverment
   autoload :Base, "japanese_local_goverment/base"
   autoload :City, "japanese_local_goverment/city"
